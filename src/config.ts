@@ -2,6 +2,8 @@
 
 import ms from 'ms';
 
+import { shiftKey } from './environment';
+
 export const DEFAULT_ACCENT_COLOR = '#7367F0';
 
 export const CHECK_INTERVAL = ms('1h'); // How often should we perform checks
@@ -326,7 +328,7 @@ export const FERDIUM_TRANSLATION = 'https://crowdin.com/project/ferdium-app';
 export const FERDIUM_DEV_DOCS =
   'https://github.com/ferdium/ferdium-recipes/blob/main/docs/integration.md';
 
-export const FILE_SYSTEM_SETTINGS_TYPES = ['app', 'proxy'];
+export const FILE_SYSTEM_SETTINGS_TYPES = ['app', 'proxy', 'shortcuts'];
 
 export const LOCAL_SERVER = 'You are using Ferdium without a server';
 export const SERVER_NOT_LOADED = 'Ferdium::SERVER_NOT_LOADED';
@@ -434,6 +436,7 @@ export const DEFAULT_APP_SETTINGS = {
   locale: 'en-US',
   keepAllWorkspacesLoaded: false,
   useSelfSignedCertificates: false,
+  sandboxServices: true,
 };
 
 export const DEFAULT_SERVICE_SETTINGS = {
@@ -468,4 +471,9 @@ export const DEFAULT_SERVICE_SETTINGS = {
   darkReaderBrightness: 100,
   darkReaderContrast: 90,
   darkReaderSepia: 10,
+};
+
+export const DEFAULT_SHORTCUTS = {
+  activateNextService: 'Ctrl+tab',
+  activatePreviousService: `Ctrl+${shiftKey()}+tab`,
 };

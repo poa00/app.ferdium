@@ -11,6 +11,7 @@ import type { StoresProps } from '../../@types/ferdium-components.types';
 import type { FormFields } from '../../@types/mobx-form.types';
 import {
   DEFAULT_APP_SETTINGS,
+  DEFAULT_SHORTCUTS,
   GOOGLE_TRANSLATOR_LANGUAGES,
   HIBERNATION_STRATEGIES,
   ICON_SIZES,
@@ -42,6 +43,7 @@ import ErrorBoundary from '../../components/util/ErrorBoundary';
 import { importExportURL } from '../../api/apiBase';
 import globalMessages from '../../i18n/globalMessages';
 import { ifUndefined } from '../../jsUtils';
+import { menuItems } from '../../lib/Menu';
 
 const debug = require('../../preload-safe-debug')('Ferdium:EditSettingsScreen');
 
@@ -367,6 +369,10 @@ const messages = defineMessages({
     defaultMessage:
       'You made a change that requires a restart. This will close Ferdium and restart it.',
   },
+  sandboxServices: {
+    id: 'settings.app.form.sandboxServices',
+    defaultMessage: 'Use sandboxed services',
+  },
 });
 
 interface EditSettingsScreenProps extends StoresProps, WrappedComponentProps {}
@@ -497,6 +503,12 @@ class EditSettingsScreen extends Component<
       beta: Boolean(settingsData.beta), // we need this info in the main process as well
       automaticUpdates: Boolean(settingsData.automaticUpdates), // we need this info in the main process as well
       locale: settingsData.locale, // we need this info in the main process as well
+      sandboxServices: Boolean(settingsData.sandboxServices),
+    };
+
+    const newShortcuts = {
+      activateNextService: settingsData.shortcutActivateNextService,
+      activatePreviousService: settingsData.shortcutActivatePreviousService,
     };
 
     const requiredRestartKeys = [
@@ -537,6 +549,12 @@ class EditSettingsScreen extends Component<
       type: 'app',
       // TODO: The conversions might not be necessary once we convert to typescript
       data: newSettings,
+    });
+
+    settings.update({
+      type: 'shortcuts',
+      // TODO: The conversions might not be necessary once we convert to typescript
+      data: newShortcuts,
     });
 
     user.update({
@@ -1296,6 +1314,33 @@ class EditSettingsScreen extends Component<
           ),
           default: DEFAULT_APP_SETTINGS.automaticUpdates,
           type: 'checkbox',
+        },
+        sandboxServices: {
+          label: intl.formatMessage(messages.sandboxServices),
+          value: ifUndefined<boolean>(
+            settings.app.sandboxServices,
+            DEFAULT_APP_SETTINGS.sandboxServices,
+          ),
+          default: DEFAULT_APP_SETTINGS.sandboxServices,
+          type: 'checkbox',
+        },
+        shortcutActivateNextService: {
+          label: intl.formatMessage(menuItems.activateNextService),
+          value: ifUndefined<string>(
+            settings.all.shortcuts.activateNextService,
+            DEFAULT_SHORTCUTS.activateNextService,
+          ),
+          default: DEFAULT_SHORTCUTS.activateNextService,
+          placeholder: DEFAULT_SHORTCUTS.activateNextService,
+        },
+        shortcutActivatePreviousService: {
+          label: intl.formatMessage(menuItems.activatePreviousService),
+          value: ifUndefined<string>(
+            settings.all.shortcuts.activatePreviousService,
+            DEFAULT_SHORTCUTS.activatePreviousService,
+          ),
+          default: DEFAULT_SHORTCUTS.activatePreviousService,
+          placeholder: DEFAULT_SHORTCUTS.activatePreviousService,
         },
       },
     };

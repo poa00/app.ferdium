@@ -2963,6 +2963,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "danny8376",
+      "name": "Danny Tsai",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3490463?v=4",
+      "profile": "http://saru.moe",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "insidewhy",
+      "name": "insidewhy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/97685?v=4",
+      "profile": "https://github.com/insidewhy",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "DenysMb",
+      "name": "Denys Madureira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33737137?v=4",
+      "profile": "https://github.com/DenysMb",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"
